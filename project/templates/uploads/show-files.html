@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>My Uploaded Files</h2>
+    <a href="{% url 'upload_file' %}" class="btn btn-primary mb-3">Upload New File</a>
+    
+    <div class="list-group">
+        {% for file in files %}
+        <div class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+                <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a>
+                <small class="d-block text-muted">Uploaded on {{ file.uploaded_at }}</small>
+            </div>
+            <div>
+                <span class="badge bg-secondary">{{ file.file.size|filesizeformat }}</span>
+            </div>
+        </div>
+        {% empty %}
+        <div class="alert alert-info">You haven't uploaded any files yet.</div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
